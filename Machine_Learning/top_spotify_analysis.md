@@ -273,7 +273,7 @@ print("Accuracy:", metrics.accuracy_score(y_test, y_predictions))
 
 ::: {.cell-output .cell-output-stdout}
 ```
-Accuracy: 0.9680851063829787
+Accuracy: 0.975177304964539
 ```
 :::
 :::

@@ -38,7 +38,7 @@ website:
       background: light
       contents:
         - text: "Car Prices"
-          file: data_analysis/car_price.qmd
+          file: data_analysis/car_prices.qmd
         - text: "---"
         - text: "Cancer Analysis"
           file: data_analysis/cancer_analysis.qmd
