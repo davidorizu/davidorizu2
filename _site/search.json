@@ -1,0 +1,219 @@
+[
+  {
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "Resume",
+    "section": "",
+    "text": "hi\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Machine_Learning/housing.html",
+    "href": "Machine_Learning/housing.html",
+    "title": "Housing Estimates",
+    "section": "",
+    "text": "Click to view colab\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Machine_Learning/bikes.html",
+    "href": "Machine_Learning/bikes.html",
+    "title": "Bike Sales with ML",
+    "section": "",
+    "text": "Click to view colab\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "data_analysis/reaction_time.html",
+    "href": "data_analysis/reaction_time.html",
+    "title": "Is Reaction Time Affected by any Variable?",
+    "section": "",
+    "text": "library(mosaic)\nlibrary(DT)\nlibrary(pander)\nlibrary(car)\nlibrary(tidyverse)\n\n# Record your data from your own mini experiment in Excel.\n# Save the data as a .csv file in the Data folder of the Statistics-Notebook.\n\n# Read in the data\nreactiont &lt;- read_csv(\"Reaction_time_data.csv\")"
+  },
+  {
+    "objectID": "data_analysis/reaction_time.html#background",
+    "href": "data_analysis/reaction_time.html#background",
+    "title": "Is Reaction Time Affected by any Variable?",
+    "section": "Background",
+    "text": "Background\nEver wonder for your reaction time depends of have your take a reaction time test. This experiment is to check if a person’s reaction time depends on what hand they used (left/right) and also what eye is open (right/left)."
+  },
+  {
+    "objectID": "data_analysis/reaction_time.html#data-source",
+    "href": "data_analysis/reaction_time.html#data-source",
+    "title": "Is Reaction Time Affected by any Variable?",
+    "section": "Data source",
+    "text": "Data source\nThe data was gotten from my personal results using all combinations of the factors of the data on a reaction test site. Each combination was run three times. The link of the reaction test site is: ReationTest.\nThe below table shows the records of the data collected.\n\ndatatable(reactiont)"
+  },
+  {
+    "objectID": "data_analysis/reaction_time.html#analysis",
+    "href": "data_analysis/reaction_time.html#analysis",
+    "title": "Is Reaction Time Affected by any Variable?",
+    "section": "Analysis",
+    "text": "Analysis\nTo test if reaction time is affected by the hand used and eye used, we would carry out a two-way ANOVA test. We will use the ANOVA test because there are two factors involved; hand used and eye used. We could use two t-tests but that would increase the probability of get errors, so an ANOVA, which is just one test, would be preferred.\n\nHypotheses\nThis analysis will use a two-way ANOVA with the factors of Hands, and Eyes and their interaction. Thus, we have three sets of hypotheses that need to be stated in order to understand the effect of each on Reaction time.\n\nDoes the hand used affect Reaction?\n\nFactor: Hand with levels \\(right\\)(r) and \\(left\\)(l). \\[\n  H_0: \\mu_r = \\mu_l = \\mu\n\\]\n\\[\n  H_a: \\mu_r \\neq \\mu_l\n\\]\n\nDoes the Eyes Used affect Reaction time?\n\nFactor: Eyes with levels \\(right\\)(r) and \\(left\\)(l). \\[\n  H_0: \\mu_r = \\mu_l = \\mu\n\\] \\[\n  H_a: \\mu_r \\neq \\mu_l\n\\]\n\nDoes the effect of Hand used change for different Eye Used? (Does the effect of Hand Used change for different levels of Eye Used?) In other words, is there an interaction between Hand Used and Eye Used?\n\n\\[\n  H_0: \\text{The effect of Hand Used is the same for any Eye used.}\n\\]\n\\[\n  H_a: \\text{The effect of Hand Used is not the same for any Eye used.}\n\\]\n\n\nTwo-way ANOVA\nA significance level of \\(\\alpha = 0.05\\) will be used for this study.\nTo find the results for the hypothesis, we conducted the two-way ANOVA and the result is the below:\n\nmyaov &lt;- aov(Reaction_time ~ Hands + eyes + Hands:eyes, data=reactiont)\nsummary(myaov) %&gt;% pander()\n\n\nAnalysis of Variance Model\n\n\n\n\n\n\n\n\n\n\n \nDf\nSum Sq\nMean Sq\nF value\nPr(&gt;F)\n\n\n\n\nHands\n1\n2883\n2883\n8.133\n0.02142\n\n\neyes\n1\n2581\n2581\n7.282\n0.02714\n\n\nHands:eyes\n1\n21.33\n21.33\n0.06018\n0.8124\n\n\nResiduals\n8\n2836\n354.5\nNA\nNA\n\n\n\n\n\nFrom the test above, we see a p-value output for each of the hypothesis stated. Any p-value that is less than the level of significance we that the factor is significant. The conclusions are that Hand Used is a significant factor \\((p=0.02142)\\), but Eyes Used does have a significant effect on reaction time \\((p=0.02714)\\), and the effect of Hand Used seems to NOT depend on the Eyes Used because the interaction term is not significant \\((p=0.8124)\\).\n\nDiagnostic Plots\nTo check if the results for this test are to be trusted, we would check the requirements to carry out this test. We created a plot of the residuals vs the fitted to check if the variance is constant. We also created a Q-Q plot of the Residuals to check the normallity of the error terms.\n\npar(mfrow=c(1,2))\nplot(myaov, which=1:2, pch=16)\n\n\n\n\nFrom the above graph, we see that the Q-Q plot of residual (graph to the right) looks good with all points close to the line, so we can say the error terms are normal. The graph of th residuals vs the fitted does not look very good because of the data points in the middle, but it is not enough to take it into consideration, so we would still assume that it has a constant variance.\n\n\n\nGraphical Summaries & Conclusions\nThe following graphics prove the results of each of the three hypothesis tests. They would also give additional on the relationship.\n\nHand Used\nThe below chart and table is to prove the finding of our test on Hand Used.\n\ndotplot(Reaction_time ~ Hands, data=reactiont, type=c(\"p\",\"a\"), main=\"Does the hand used affect reaction time?\", col='purple', xlab=\"Hands used\", ylab=\"Reaction time\") \n\n\n\n\n\nreactiont %&gt;%\n  group_by(Hands) %&gt;%\n  summarise(`Mean Reaction time`=mean(Reaction_time)) %&gt;%\n  pander(caption=\"Mean of each hand\")\n\n\nMean of each hand\n\n\n\n\n\n\nHands\nMean Reaction time\n\n\n\n\nLeft Hand\n294.7\n\n\nRight Hand\n263.7\n\n\n\n\n\nThe above chart and table verifies the finding of the test we carried out. The line in the chart is showing the average of the two factors. We can see that right hand has a lower average than left hand. This means that the hand used to take the reaction time test would affect the result. For our data set (Which is my personal results), right hand would give a lower reaction time.\n\n\nTension Level\nThe below chart and table is to prove the finding of our test on Eye Used.\n\ndotplot(Reaction_time ~ eyes, data=reactiont, type=c(\"p\",\"a\"), main=\"Does the eye used affect reaction time?\", col='orange', xlab=\"Eye used\", ylab=\"Reaction time\") \n\n\n\n\n\nreactiont %&gt;%\n  group_by(eyes) %&gt;%\n  summarise(`Mean Reaction time`=mean(Reaction_time)) %&gt;%\n  pander(caption=\"Mean of each eye\")\n\n\nMean of each eye\n\n\n\n\n\n\neyes\nMean Reaction time\n\n\n\n\nLeft eyes\n293.8\n\n\nRight eyes\n264.5\n\n\n\n\n\nThe above chart and table verifies the finding of the test we carried out. The line in the chart also shows the average of the two factors. We can see that right eyes has a lower average than left eyes. This means that the eye used to take the reaction time test would affect the result. For our data set (Which is my personal results), right eye would give a lower reaction time.\n\n\nTension Choices Depending on Wool Type\nThe below chart and table is to prove the finding of our test on the interaction between Hand Used and Eye Used.\n\ndotplot(Reaction_time ~ eyes, data=reactiont, groups=Hands, type=c(\"p\",\"a\"), main=\"Significance of the Interaction between hand and eye used\", auto.key=list(corner=c(1,1)))\n\n\n\n\n\nreactiont %&gt;%\n  group_by(Hands, eyes) %&gt;%\n  summarise(`Mean Reaction time`=mean(Reaction_time)) %&gt;%\n  pander(caption=\"Mean of each interaction between Hand Used and Eye Used\")\n\n\nMean of each interaction between Hand Used and Eye Used\n\n\n\n\n\n\n\nHands\neyes\nMean Reaction time\n\n\n\n\nLeft Hand\nLeft eyes\n308\n\n\nLeft Hand\nRight eyes\n281.3\n\n\nRight Hand\nLeft eyes\n279.7\n\n\nRight Hand\nRight eyes\n247.7\n\n\n\n\n\nThe above chart and table verifies the finding of the test we carried out. The line in the chart is showing the average reaction time of each hands for each eyes. We can see that line for both hands have lines similar and approximately parallel to each other. This means that the effect of hand used to take the reaction time test is the same for each eye."
+  },
+  {
+    "objectID": "data_analysis/reaction_time.html#conclusion",
+    "href": "data_analysis/reaction_time.html#conclusion",
+    "title": "Is Reaction Time Affected by any Variable?",
+    "section": "Conclusion",
+    "text": "Conclusion\nWith all the information found in the experiment, we can conclude that the hand and eye used during a reaction time test would affect the result of the test. However, we also found that the effect of the hand use to take the reaction time test would be the same for each eye when used."
+  },
+  {
+    "objectID": "data_analysis/cancer_analysis.html",
+    "href": "data_analysis/cancer_analysis.html",
+    "title": "Breat Cancer Analysis",
+    "section": "",
+    "text": "library(readr)\nlibrary(tidyverse)\nlibrary(pander)\nlibrary(DT)\nb_cancer &lt;- read_csv(\"~/Data/breast_cancer/breast_cancer.csv\")\ncancer &lt;- b_cancer %&gt;% mutate(\n  diagnosis = ifelse(diagnosis == 'M',1,0)\n)%&gt;% \n  rename(\"concave_points_mean\"  = \"concave points_mean\" )"
+  },
+  {
+    "objectID": "data_analysis/cancer_analysis.html#introduction",
+    "href": "data_analysis/cancer_analysis.html#introduction",
+    "title": "Breat Cancer Analysis",
+    "section": "Introduction",
+    "text": "Introduction\nGlobally, breast cancer is the most prevalent cancer among women and ranks second in terms of mortality rates. The diagnosis process for breast cancer typically begins when an unusual lump is detected, either through self-examination or an x-ray, or when a small calcium deposit is observed on an x-ray. Once a suspicious lump is identified, a doctor will perform a diagnosis to ascertain if it is Malignant (cancerous) and whether it has metastasized to other parts of the body or if it is benign (not cancerous).\nThe purpose of the model being created is to detect accurately what type of tumor is found in the breast with the given features. The model will predict if the tumor is Malignant (cancerous).\nWhen a diagnosis is being done, ten real-valued features are computed for each cell nucleus:\n\nradius (mean of distances from center to points on the perimeter)\ntexture (standard deviation of gray-scale values)\nperimeter (the measure of the core tumor)\narea (the measure of the breast tissue)\nsmoothness (local variation in radius lengths)\ncompactness (perimeter^2 / area - 1.0)\nconcavity (severity of concave portions of the contour)\nconcave points (number of concave portions of the contour)\nsymmetry (how much of a proportion difference.)\nfractal dimension (“coastline approximation” - 1)"
+  },
+  {
+    "objectID": "data_analysis/cancer_analysis.html#data",
+    "href": "data_analysis/cancer_analysis.html#data",
+    "title": "Breat Cancer Analysis",
+    "section": "Data",
+    "text": "Data\nThe dataset used is the Breast Cancer Wisconsin (Diagnostic) Data Set from kaggle (https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data).\n\ndatatable(cancer)\n\n\n\n\n\n\nNote: In the diagnosis column, the 1 = malignant and 0 = Benign."
+  },
+  {
+    "objectID": "data_analysis/cancer_analysis.html#features-used",
+    "href": "data_analysis/cancer_analysis.html#features-used",
+    "title": "Breat Cancer Analysis",
+    "section": "Features used",
+    "text": "Features used\nThese were the features the model uses for it’s predictions:\nradius_mean: mean of distances from center to points on the perimeter\nradius_se: standard error for the mean of distances from center to points on the perimeter\nsymmetry_worst: “worst” or largest mean value for local variation in radius lengths\ntexture_worst: “worst” or largest mean value for standard deviation of gray-scale values\nconcave_points_mean: “worst” or largest mean value for number of concave portions of the contour"
+  },
+  {
+    "objectID": "data_analysis/cancer_analysis.html#model",
+    "href": "data_analysis/cancer_analysis.html#model",
+    "title": "Breat Cancer Analysis",
+    "section": "Model",
+    "text": "Model\nFor the predicting if the tumor is cancerous or not, I chose this model:\n\nmyglm &lt;- glm(diagnosis ~ radius_mean + \n               radius_se  + \n               symmetry_worst + \n               texture_worst + \n               concave_points_mean\n             , data=cancer, family=binomial)\nsummary(myglm) %&gt;% pander()\n\n\n\n\n\n\n\n\n\n\n\n \nEstimate\nStd. Error\nz value\nPr(&gt;|z|)\n\n\n\n\n(Intercept)\n-36.16\n4.889\n-7.396\n1.405e-13\n\n\nradius_mean\n0.9413\n0.1818\n5.178\n2.239e-07\n\n\nradius_se\n6.043\n1.779\n3.397\n0.0006823\n\n\nsymmetry_worst\n26.26\n6.453\n4.07\n4.699e-05\n\n\ntexture_worst\n0.3304\n0.05507\n6\n1.971e-09\n\n\nconcave_points_mean\n75.66\n15.44\n4.9\n9.581e-07\n\n\n\n(Dispersion parameter for binomial family taken to be 1 )\n\n\n\n\n\n\n\nNull deviance:\n750.5 on 567 degrees of freedom\n\n\nResidual deviance:\n107.1 on 562 degrees of freedom\n\n\n\n\n\nEach variable in the model will be graphically represented in the next section below."
+  },
+  {
+    "objectID": "data_analysis/cancer_analysis.html#graphical-representation",
+    "href": "data_analysis/cancer_analysis.html#graphical-representation",
+    "title": "Breat Cancer Analysis",
+    "section": "Graphical Representation",
+    "text": "Graphical Representation\nThe variables in the model are interpreted below:\n\nb &lt;- coef(myglm)\ndrawit &lt;- function(RM, RS=1.5, SW=0.1, TW=28, CPM=0.1){\n  1/(1+exp(-(b[1] + b[2]*RM + b[3]*RS + b[4]*SW + b[5]*TW + b[6]*CPM)))\n}\n\nggplot(cancer, aes(x=radius_mean, y=diagnosis)) + \n  \n  stat_function(fun=drawit, args=list(), aes(color=\"1.5\"), linewidth = 1.25) +\n  stat_function(fun=drawit, args=list(RS=1), aes(color=\"1\"), linewidth = 1) + \n  stat_function(fun=drawit, args=list(RS=2), aes(color=\"2\"), linewidth = 1.5) + \n  \n  \n  labs(y = \"Probability of having a maligant tumor\",\n       color = \"radius_se values\",\n       title = \"When the radius_se changes and other variables held constant \") +\n  \n  theme(plot.title = element_text(face = \"bold\", hjust=0.5))\n\n\n\n\n\nggplot(cancer, aes(x=radius_mean, y=diagnosis)) + \n  \n  stat_function(fun=drawit, args=list(), aes(color=\"0.1\"), linewidth = 1.25) +\n  stat_function(fun=drawit, args=list(SW=0.05), aes(color=\"0.05\"), linewidth = 1) + \n  stat_function(fun=drawit, args=list(SW=0.3), aes(color=\"0.3\"), linewidth = 1.5) + \n  \n  \n  labs(y = \"Probability of having a maligant tumor\",\n       color = \"symmetry_worst values\",\n       title = \"When the symmetry_worst changes and other variables held constant \") +\n  \n  theme(plot.title = element_text(face = \"bold\", hjust=0.5))\n\n\n\n\n\nggplot(cancer, aes(x=radius_mean, y=diagnosis)) + \n  \n  stat_function(fun=drawit, args=list(), aes(color=\"28\"), linewidth = 1.25) +\n  stat_function(fun=drawit, args=list(TW=24), aes(color=\"24\"), linewidth = 1) + \n  stat_function(fun=drawit, args=list(TW=35), aes(color=\"35\"), linewidth = 1.5) + \n  \n  labs(y = \"Probability of having a maligant tumor\",\n       color = \"texture_worst values\",\n       title = \"When the texture_worst changes and other variables held constant \") +\n  \n  theme(plot.title = element_text(face = \"bold\", hjust=0.5))\n\n\n\n\n\nggplot(cancer, aes(x=radius_mean, y=diagnosis)) + \n  \n  stat_function(fun=drawit, args=list(), aes(color=\"0.1\"), linewidth = 1.25) +\n  stat_function(fun=drawit, args=list(CPM=0.05), aes(color=\"0.05\"), linewidth = 1) + \n  stat_function(fun=drawit, args=list(CPM=0.2), aes(color=\"0.2\"), linewidth = 1.5) + \n  \n  labs(y = \"Probability of having a maligant tumor\",\n       color = \"concave_points_mean\",\n       title = \"When the concave_points_mean changes and other variables held constant \") +\n  \n  theme(plot.title = element_text(face = \"bold\", hjust=0.5))\n\n\n\n\nEach of the above plots shows how increasing or decreasing the variables affect the odds."
+  },
+  {
+    "objectID": "data_analysis/cancer_analysis.html#interpretation",
+    "href": "data_analysis/cancer_analysis.html#interpretation",
+    "title": "Breat Cancer Analysis",
+    "section": "Interpretation",
+    "text": "Interpretation\nWe will interpret each of the variables used in the model:\nradius_mean: From the model, we see that holding all other variables constant, each one unit increase to the radius_mean make the tumor 2.56 more times likely to be a malignant tumor.\nradius_se: From the model, we see that holding all other variables constant, each 0.5 (half) unit increase to the radius_se make the tumor 20.52 more times likely to be a malignant tumor.\nsymmetry_worst: From the model, we see that holding all other variables constant, each 0.1 unit increase to the symmetry_worst make the tumor 13.818 more times likely to be a malignant tumor.\ntexture_worst: From the model, we see that holding all other variables constant, each one unit increase to the texture_worst make the tumor 1.39 more times likely to be a malignant tumor.\nconcave_points_mean: From the model, we see that holding all other variables constant, each 0.01 unit increase to the concave_points_mean make the tumor 2.131 more times likely to be a malignant tumor."
+  },
+  {
+    "objectID": "data_analysis/cancer_analysis.html#models-performance",
+    "href": "data_analysis/cancer_analysis.html#models-performance",
+    "title": "Breat Cancer Analysis",
+    "section": "Model’s Performance",
+    "text": "Model’s Performance\n\nset.seed(14)\nn &lt;- nrow(cancer)\n\nkeep &lt;- sample(1:n, 400)#putSomeNumberHere that is about 60-70% of your data set's size\nmytrain &lt;- cancer[keep, ]\nmytest &lt;- cancer[-keep, ]\n  \ntrain.glm &lt;- glm(diagnosis ~ radius_mean + \n               radius_se  + \n               symmetry_worst + \n               texture_worst + \n               concave_points_mean\n             , data=cancer, family=binomial)\n\nmypreds &lt;- predict(train.glm, mytest, type=\"response\")\n\ncallit &lt;- ifelse(mypreds &gt; 0.6, 1, 0) #you can put whatever you want for the 0.9 value\n\ntable(mytest$diagnosis, callit)\n\n   callit\n      0   1\n  0 109   2\n  1   3  54\n\n\nThis is the percentage of correctly classified students this model gives.\n\npcc &lt;- (163/168)\npcc\n\n[1] 0.9702381"
+  },
+  {
+    "objectID": "data_analysis/car_prices.html",
+    "href": "data_analysis/car_prices.html",
+    "title": "Car Prices",
+    "section": "",
+    "text": "library(mosaic)\nlibrary(tidyverse)\nlibrary(pander)\nlibrary(car)\nlibrary(DT)\ncp &lt;- CarPrices %&gt;%\n  filter(Make == \"Pontiac\" | Make == \"SAAB\")\ncarlm &lt;- lm(Price ~ Mileage + Make + Mileage:Make, data=cp)"
+  },
+  {
+    "objectID": "data_analysis/car_prices.html#background",
+    "href": "data_analysis/car_prices.html#background",
+    "title": "Car Prices",
+    "section": "Background",
+    "text": "Background\nEver had to pick between two Makes of cars? Anyone that has bough a car would probably say yes. We want to pick between a Pontiac and a SAAB. This would be the first car this person buys, and he wants to know with would give him a better value when he wants to sell it. We are going to check how the price of both makes are affected by their mileage. We are going to predict the price of both makes of cars by the mileage on it."
+  },
+  {
+    "objectID": "data_analysis/car_prices.html#data",
+    "href": "data_analysis/car_prices.html#data",
+    "title": "Car Prices",
+    "section": "Data",
+    "text": "Data\nThe data we used for this test comes from a dataset of various car makes, models, and information about them. The dataset was filtered to only show data on Pontiac and SAAB cars. The dataset is displayed below.\n\ndatatable(cp)\n\n\n\n\n\n\n\nTest Choice\nWhen reading the background, we get the question of the test which is; Which car would have the highest predicted price based on the mileage. We see a key word which is predict, so the first test that comes to mind is a linear regression. Because we are analyzing the price and mileage of two different car makes, we may have to use a multiple linear regression."
+  },
+  {
+    "objectID": "data_analysis/car_prices.html#diagnostic-plot",
+    "href": "data_analysis/car_prices.html#diagnostic-plot",
+    "title": "Car Prices",
+    "section": "Diagnostic Plot",
+    "text": "Diagnostic Plot\nWe will make the diagnostic plots of a multiple linear regression to see if we meet the requirement to carry out this test.\n\npar(mfrow=c(1,3))\nplot(carlm, which=1)\nqqPlot(carlm$residuals, main = \"QQ-Plot of the residuals\", id=FALSE)\nplot(carlm$residuals, main=\"Residuals vs Order\")\n\n\n\n\nThe plot on the left titled “Residuals vs Fitted” is made to check if there is a linear relationship, and also if the variance is constant. As we can see, there is no obvious trend in the plot, so we can assume there is a linear relationship. The spread of the data points are not so consistent across all fitted values, so the variance may not be constant (but we will continue with the analysis).\nThe graph at the middle shows a qq-plot of the data points. We see that not all data points are within the boundaries, which is a sign that the data is not normal. However, the sample size is large (264&gt;30) so because of the central limit theory, we can assume normality.\nThe graph on the right shows a plot for the residuals against the order of occurrence. The plot is used to check if the error terms are independent. We see from the graph that there is no trend visible, so we can assume that the error terms are independent."
+  },
+  {
+    "objectID": "data_analysis/car_prices.html#analysis",
+    "href": "data_analysis/car_prices.html#analysis",
+    "title": "Car Prices",
+    "section": "Analysis",
+    "text": "Analysis\nThis analysis attempts to predict the price of each car makes and by the mileage on the car and compare them using a multiple linear regression. Specifically,\n\\[\n  \\underbrace{Y_i}_{\\text{Price}} = \\overbrace{\\beta_0 + \\beta_1 \\underbrace{X_{i1}}_{\\text{Mileage}}}^{\\text{Pontiac Line}} + \\overbrace{\\beta_2 \\underbrace{X_{i2}}_{\\text{1 if SAAB}} + \\beta_3 \\underbrace{X_{i1} X_{i2}}_{\\text{Interaction}}}^{\\text{SAAB Line}} + \\epsilon_i\n\\]\nwhere \\(\\epsilon_i\\sim N(0,\\sigma^2)\\) and \\(X_{i2} = 0\\) when the vehicle is a Pontiac and \\(X_{i2} = 1\\) when the vehicle is a SAAB This forced 0, 1 encoding for \\(X_{i2}\\) produces the following models.\nThe hypotheses for our study concern the change in the y-intercept (\\(\\beta_2\\)) and the change in the slope (\\(\\beta_3\\)).\nIf the change in y-intercepts is zero, then the y-intercepts, which represent the average cost of a brand new vehicle, are the same for the Pontiac and SAAB. If \\(\\beta_2\\) is greater than zero, then the SAAB costs more on average than the Pontiac when brand new, and if \\(\\beta_2\\) is less than zero, then the SAAB costs less (change in y-intercept = y-intercept of SAAB - y-intercept of Pontiac).\n\\[\n  H_0: \\beta_2 = 0 \\quad \\text{(Equal average cost when brand new)} \\\\\n  H_a: \\beta_2 \\neq 0 \\quad \\text{(Non-equal average cost when brand new)}\n\\]\nIf \\(\\beta_3\\) is zero, then the slopes of the two lines are the same. This would imply that the rate of depreciation is the same for both the Pontiac and SAAB. However, if the slopes differ (\\(\\beta_3 \\neq 0\\)), positively then SAAB has a steeper slope than Pontiac (change in slope = slope of SAAB - slope of Pontiac).\n\\[\n  H_0: \\beta_3 = 0 \\quad \\text{(Equal rates of depreciation)} \\\\\n  H_a: \\beta_3 \\neq 0 \\quad \\text{(Non-equal rates of depreciation)}\n\\]\nThe Level of significance is:\n\\[\n  \\alpha = 0.05\n\\]"
+  },
+  {
+    "objectID": "data_analysis/car_prices.html#test-results",
+    "href": "data_analysis/car_prices.html#test-results",
+    "title": "Car Prices",
+    "section": "Test Results",
+    "text": "Test Results\nWe carried out a multiple linear regression test and the results were the below:\n\npander(summary(carlm))\n\n\n\n\n\n\n\n\n\n\n\n \nEstimate\nStd. Error\nt value\nPr(&gt;|t|)\n\n\n\n\n(Intercept)\n20224\n773.3\n26.15\n9.213e-75\n\n\nMileage\n-0.09377\n0.03692\n-2.54\n0.01168\n\n\nMakeSAAB\n13650\n1205\n11.33\n1.86e-24\n\n\nMileage:MakeSAAB\n-0.1151\n0.05511\n-2.089\n0.03772\n\n\n\n\nFitting linear model: Price ~ Mileage + Make + Mileage:Make\n\n\n\n\n\n\n\n\nObservations\nResidual Std. Error\n\\(R^2\\)\nAdjusted \\(R^2\\)\n\n\n\n\n264\n3655\n0.7072\n0.7038\n\n\n\n\n\nFrom the test results, we see that both the change in the y-intercept and the change in the slope are significant because both p-values are less than 0.05. We can conclude that there is a difference in the average cost of either vehicle when brand new. Since the p-value for the change in y-intercept was positive (1.86e-24), SAAB cost more on average than Pontiac. We also conclude that there is a difference in the rate of price depreciation in both makes. Since the p-value of the change in slope is not zero, one vehicle make loses its value faster than the other."
+  },
+  {
+    "objectID": "data_analysis/car_prices.html#graphical-summary",
+    "href": "data_analysis/car_prices.html#graphical-summary",
+    "title": "Car Prices",
+    "section": "Graphical summary",
+    "text": "Graphical summary\nTo show our results visually, we made a scatter plot and fitted two line based on each vehicle make.\n\nb &lt;- coef(carlm)\n\n\npar(mfrow=c(1,1))\npalette(c(\"purple\", \"orange\"))\nplot(Price ~ Mileage, data=cp, col=as.factor(Make), pch=16, ylab = (\"Price($)\"), xlab=(\"Milage of the vehicle (miles)\"), main= \"Price and decrese in value \\n Pontiac vs SAAB\", yaxt=\"n\")\nlegend(\"topright\", legend=c(\"Pontiac\", \"SAAB\"), col=palette(), pch=16, text.col = palette())\ncurve(b[1]+ b[2]*x, col=\"purple\", add=TRUE)\ncurve((b[1]+b[3])+ (b[2]+b[4])*x, col=\"orange\", add=TRUE)\naxis(2, at=c(15000, 20000, 25000, 30000, 35000), labels=c(\"$15k\", \"$20k\", \"$25k\", \"$30k\", \"$35k\"), las=2)\n\n\n\n\nThe equation of the estimated regression equation from the scatter plot above is given by:\n\\[\n  \\underbrace{Y_i}_{\\text{Price}} = \\overbrace{20223.79 - 0.093769 \\underbrace{X_{i1}}_{\\text{Mileage}}}^{\\text{Pontiac Line}} + \\overbrace{13649.8 {X_{i2}} - 0.11510 {X_{i1} X_{i2}}}^{\\text{SAAB Line}}\n\\] The graph tells us that for every 1 mile increase in mileage of a Pontiac car, the price of the car reduces by 0.093769 dollars, while for every 1 mile increase in mileage of a SAAB car, the price of the car reduces by 0.2088749 dollars.\nThe graph also tells us that a newly bought Pontiac car with no mileage would cost 20223.79 dollars, while for a SAAB car it would cost 33873.58 dollars."
+  },
+  {
+    "objectID": "data_analysis/car_prices.html#conclusion",
+    "href": "data_analysis/car_prices.html#conclusion",
+    "title": "Car Prices",
+    "section": "Conclusion",
+    "text": "Conclusion\nNow, we can see some information from the statistical test and the visual representative. We can see that the if both lines on the graph are extended they will touch the y-axis at different point, which means the y-intercepts are different. We can see that SAAB cars on average would cost more because the the y-intercept is higher than that of Pontiac. This also corresponds with the test results.\nIt is not as obvious, but We also see that the the slope of SAAB is steeper than the slope of Pontiac. Since both of them are going downwards and have negative slope, we see that the prices depreciate as we would expect. Because the slope of SAAB vehicles is steeper, it means that SAAB vehicles lost their value more with an increase in mileage. This also matches with the test results."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome to my Portfolio",
+    "section": "",
+    "text": "The foundational quality of my journey has been my commitment to continuous learning and the ability to adapt in the face of growing challenges. My contributions have played a vital role in the success of my projects and teams. My passion for data science and analysis powers my drive to always stay ahead of the curve. I thrive in environments where I can use my skills to acquire insights from data. Committed to success, I look forward to connecting with like-minded professionals and exploring opportunities to contribute my skills to success-thinking organizations. I am ready to leverage my experience and skills to make a significant impact in my next role. If you are looking for a dedicated professional who can aid positive change and strive to deliver relevant results, let us connect and explore how we can work together to achieve mutual goals.\nPlease click on the project tabs.\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Machine_Learning/breast_cancer.html",
+    "href": "Machine_Learning/breast_cancer.html",
+    "title": "Breast Cancer Detection",
+    "section": "",
+    "text": "Click to view colab\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "Machine_Learning/top_spotify_analysis.html",
+    "href": "Machine_Learning/top_spotify_analysis.html",
+    "title": "Spotify Analysis - What does it take to make the top charts",
+    "section": "",
+    "text": "Code\nlibrary(tidyverse)\nlibrary(caret)\nlibrary(randomForest)\nlibrary(openxlsx)\nlibrary(stringr)\nCode\nfrom types import GeneratorType\nimport pandas as pd\nimport altair as alt\nimport numpy as np\nimport seaborn as sns\n\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.naive_bayes import GaussianNB\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.ensemble import GradientBoostingClassifier\nfrom sklearn.tree import DecisionTreeClassifier\nfrom sklearn import metrics"
+  },
+  {
+    "objectID": "Machine_Learning/top_spotify_analysis.html#background",
+    "href": "Machine_Learning/top_spotify_analysis.html#background",
+    "title": "Spotify Analysis - What does it take to make the top charts",
+    "section": "Background",
+    "text": "Background\nIt would be difficult to find a person that does not or has never listened to music. On streaming services, movies, commercials, toys, or the person beside you humming a song, music is everywhere and the artists who make these songs aim to have their songs hit the top charts.\nThis makes us think, what can an artist do to make his songs one of the best. Are there variables that affect how high a song gets on the charts.\nWe will focus on the Spotify charts and specifically the top 100 then analyze if there are variables that affect a songs position.\n\n\nCode\ntop_spotify &lt;- read.csv(\"C:/Users/chidu/OneDrive/Documents/Data Wrangling & visualization DS350/Data/spotify-2023.csv\")\n\n\n\n\nCode\ntop_spotify$streams &lt;- as.numeric(top_spotify$streams)\ntop_spotify$in_deezer_playlists &lt;- as.numeric(top_spotify$in_deezer_playlists)\n\ntop_spotify$in_shazam_charts &lt;- as.numeric(top_spotify$in_shazam_charts)\n\nspotify &lt;- top_spotify %&gt;% \n  arrange(desc(streams))%&gt;% \n  mutate(\n  multiple_artist = case_when(\n  artist_count &lt;= 1 ~ 0,\n  artist_count &gt; 1 ~ 1\n), top100 = case_when(\n  row_number() &lt; 101 ~ 1, \n  row_number() &gt; 100 ~ 0\n), rank = case_when(\n    row_number() &lt;= 10 ~ \"Top 10\",\n    row_number() &lt;= 50 ~ \"Top 50\",\n    row_number() &lt;= 100 ~ \"Top 100\",\n    row_number() &lt;= 200 ~ \"Top 200\",\n    row_number() &lt;= 500 ~ \"Top 500\",\n    row_number() &lt;= 950 ~ \"Top 950\",\n    TRUE ~ \"Other\")) %&gt;%\n  \n  pivot_wider(names_from = mode, values_from = mode, values_fn = length, values_fill = 0) \n\nspotify$key &lt;- ifelse(spotify$key == \"\", \"N\", spotify$key)\n\nspotify &lt;- spotify %&gt;% pivot_wider(names_from = key, values_from = key, values_fn = length, values_fill = 0)\n\nspotify &lt;- select(spotify, -N)\n\nspotify &lt;- spotify[complete.cases(spotify$top100), ]\n\n## change column names that have special characters.\nspotify &lt;- spotify %&gt;% rename(CSharp = 'C#', FSharp = 'F#', GSharp = 'G#', ASharp = 'A#', DSharp = 'D#')\n\nspotify$artist.s._name &lt;- str_to_lower(spotify$artist.s._name)\n\nspotify &lt;- spotify %&gt;% \n  mutate(taylor_swift = ifelse(str_detect(artist.s._name, \"taylor swift\"), 1, 0),\n         bad_bunny = ifelse(str_detect(artist.s._name, \"bad bunny\"), 1, 0),\n         the_weeknd = ifelse(str_detect(artist.s._name, \"the weeknd\"), 1, 0),\n         drake = ifelse(str_detect(artist.s._name, \"drake\"), 1, 0), \n         peso_pluma = ifelse(str_detect(artist.s._name, \"peso pluma\"), 1, 0))\n\nspotify$rank &lt;- factor(spotify$rank, levels = c(\"Top 10\", \"Top 50\", \"Top 100\", \"Top 200\", \"Top 500\", \"Top 950\"))\n\nwrite.csv(spotify, \"spotify_data.csv\", row.names = FALSE)"
+  },
+  {
+    "objectID": "Machine_Learning/top_spotify_analysis.html#analysis---look-into-some-music-variables",
+    "href": "Machine_Learning/top_spotify_analysis.html#analysis---look-into-some-music-variables",
+    "title": "Spotify Analysis - What does it take to make the top charts",
+    "section": "Analysis - Look into some music variables",
+    "text": "Analysis - Look into some music variables\nWe will look into some of the variables that we would probably be interested in.\n\nStreams\nWe will make a simple visual to show explore a little into streams as a variable.\n\n\nCode\nrank_streams &lt;- spotify %&gt;% group_by(rank) %&gt;% \n  summarise(average_s = mean(streams, na.rm = TRUE)) %&gt;% na.omit()\n\nggplot(rank_streams, aes(x=rank, y=average_s)) +\n  geom_col(color = \"purple\", fill = \"lightblue\") +\n  \n  labs(x=\"Rank\",\n       y=\"Average Streams\",\n       title = \"The average number of streams for each rank\") +\n  \n  annotate(\"text\", x = 1, y = 2995662940, label = \"2,895,662,936\", color = \"purple\", size = 4) +\n  \n  annotate(\"text\", x = 2, y = 2165210153, label = \"2,065,210,153\", color = \"purple\", size = 4) +\n  \n  annotate(\"text\", x = 3, y = 1585441068, label = \"1,485,441,068\", color = \"purple\", size = 4) +\n  \n  annotate(\"text\", x = 4, y = 1119293511, label = \"1,019,293,511\", color = \"purple\", size = 4) +\n  \n  annotate(\"text\", x = 5, y = 557477778, label = \"462,477,778\", color = \"purple\", size = 4) +\n  \n  annotate(\"text\", x = 6, y = 209883749, label = \"139,883,749\", color = \"purple\", size = 4) +\n  \n  theme(plot.title = element_text(face = \"bold\", hjust=0.5))\n\n\n\n\n\nThe above graph shows the average streams for each rank category. As we would expect, the number of streams increases the higher the rank, so they are directly proportional. The number of streams was actually used to place songs in their respective ranks.\n\n\nKey\nWe will look to see if the key of the song (major or minor) has an effect on the rank of the song.\n\n\nCode\npercent_mode &lt;- spotify %&gt;% \n  group_by(rank) %&gt;% \n  summarise(Major = mean(Major) * 100,\n            Minor = mean(Minor) * 100) %&gt;% \n  filter(rank != \"Other\")\npercent_mode$rank &lt;- factor(percent_mode$rank, levels = c(\"Top 10\", \"Top 50\", \"Top 100\", \"Top 200\", \"Top 500\", \"Top 950\"))\n\npercent_mode &lt;- percent_mode %&gt;% \n  pivot_longer(cols = 2:3, names_to = \"mode\", \n               values_to = \"percentage\", values_drop_na = TRUE)\n\n\nggplot(percent_mode, aes(x=rank, y=percentage, color = mode)) +\n  geom_point() +\n  \n  geom_line(mapping=aes(group = mode)) +\n  \n  ggrepel::geom_text_repel(aes(label =  paste0(round(percentage, 2), \"%\")), size =3, data = percent_mode) +\n  \n  labs(x=\"Rank\",\n       y=\"Percentage (%)\",\n       color = \"Mode\",\n       title = \"The percentage of songs that have each key for each rank\") \n\n\n\n\n\nFrom the above plot, we see that the percentage for each key varies based on the rank category. Looking at the top 100, we see that 72% of songs in this category has a Major key while the remaining 28% have a minor key. This would mean that a song would have a better chance being in the top 100 if it has a Major key"
+  },
+  {
+    "objectID": "Machine_Learning/top_spotify_analysis.html#making-a-model---to-predict-if-a-song-is-in-top-100",
+    "href": "Machine_Learning/top_spotify_analysis.html#making-a-model---to-predict-if-a-song-is-in-top-100",
+    "title": "Spotify Analysis - What does it take to make the top charts",
+    "section": "Making a Model - to predict if a song is in top 100",
+    "text": "Making a Model - to predict if a song is in top 100\nTo investigate into this more, we will make a model that would predict if a song would make it to the top 100. This would help to know what variables have a greater effect of a song hitting top 100, which would sound the effect on a song going higher in the charts.\nFor the model, Random Forest classification was used mainly because the data had continuous and categorical variables.\n\n\nCode\nfile_path = r\"C:\\Users\\chidu\\OneDrive\\Documents\\Data Wrangling & visualization DS350\\DS350_WI24_Orizu_Davi\\spotify_data.csv\"\n\n# Read the CSV file into a DataFrame, specifying the encoding\nspotify2 = pd.read_csv(file_path, encoding=\"latin1\")\n\n# Iterate over column names and remove periods\nnew_column_names = [col.replace('.', '') for col in spotify2.columns]\n\n# Rename the columns with the new names\nspotify2 = spotify2.rename(columns=dict(zip(spotify2.columns, new_column_names)))\n\nspotify2['in_deezer_playlists'] = spotify2['in_deezer_playlists'].astype(float)\n\nspotify2['in_shazam_charts'] = spotify2['in_shazam_charts'].astype(float)\n\nspotify2.dropna(inplace=True)\n\n\n\n\nCode\nx = spotify2.filter([\"artist_count\", \"released_year\", \"released_month\", \"released_day\", \"in_spotify_playlists\", \"in_spotify_charts\", \"in_apple_playlists\", \"in_apple_charts\", \"in_deezer_playlists\", \"in_deezer_charts\", \"in_shazam_charts\", \"bpm\", \"danceability_\", \"valence_\", \"energy_\", \"acousticness_\", \"instrumentalness_\", \"liveness_\", \"speechiness_\", \"multiple_artist\", \"Major\", \"Minor\", \"F\", \"D\", \"the_weeknd\"])\n\ny = spotify2.top100\n\n\n\n\nCode\nx_train, x_test, y_train, y_test = train_test_split(x, y, test_size = .34, random_state = 76)\n\n\n\n\nRandomForestClassifier(max_depth=50)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.RandomForestClassifierRandomForestClassifier(max_depth=50)\n\n\n\nAccuracy result\nAfter running the model:\n\n\nCode\n# test how accurate predictions are\nprint(\"Accuracy:\", metrics.accuracy_score(y_test, y_predictions))\n\n\nAccuracy: 0.9716312056737588\n\n\n\n\nCode\nfeature_df = pd.DataFrame({'features':x.columns, 'importance':classifier.feature_importances_})\n\n\nfeature_df.to_excel('stfy_importance.xlsx', index=False) \n\n\n\n\nThe level of importance of each variable\nA key reason for making this model was to see what variables are of most importance to the model, so the below show a bar chart of the importance of most variables ordered.\n\n\nCode\nimportance_df &lt;- read.xlsx(\"C:/Users/chidu/OneDrive/Documents/Data Wrangling & visualization DS350/DS350_WI24_Orizu_Davi/week_14/stfy_importance.xlsx\")\n\n\n\n\nCode\nggplot(importance_df, aes(x=importance, y=reorder(features, importance))) +\n  geom_col(color=\"black\", fill=\"purple\") +\n  labs(x = \"Importance\", y = \"Variable\",\n       title = \"Importance scale of each variable\")\n\n\n\n\n\nFrom the above chart, we can see what variables are of most importance. It appears that the number of times a sound is in Deezer playlists has a large impacts on how high in the charts a sound goes (Deezer is a French music streaming service).\nA song being in Spotify and apple playlists also have an impact on the song’s performance. This is probably because a song being in a playlists means it gets listened to more.\nAnother interesting finding is the if The weekend a R&B artist is on a song it has an impact on the song’s place in the charts.\nThere were some variables that did not have much of an impact of the songs like: some of the key, multiple artists being on the track"
+  },
+  {
+    "objectID": "Machine_Learning/top_spotify_analysis.html#exploring-some-variables",
+    "href": "Machine_Learning/top_spotify_analysis.html#exploring-some-variables",
+    "title": "Spotify Analysis - What does it take to make the top charts",
+    "section": "Exploring some variables",
+    "text": "Exploring some variables\nWe will look into some of the variables to see the patterns.\n\nDeezer playlists\nwe explored the variable of the number of Deezer playlists the song is in. The plot before shows its relationship with streams.\n\n\nCode\nggplot(spotify, aes(x=in_deezer_playlists, y=streams)) +\n  \n  geom_point(color = \"lightblue\") +\n  \n  geom_smooth(method = \"lm\", se = FALSE, color = \"purple\", size = 1) + \n  \n  scale_y_continuous(breaks = c(0, 1000000000, 2000000000, 3000000000), label = c(\"0\", \"1 Billion\", \"2 Billion\", \"3 Billion\")) +\n  \n  labs(x= \"Count in deezer playlists\",\n       y=\"Streams\",\n       title = \"The relationship between the number of streams and the number of deezer playlists\")\n\n\n\n\n\nFrom the graph, we see that it the variables have a linear relationship. This means that being in Deezer playlist is direct proportional to the number of streams. This means that as the number in Deezer playlist increses, the number of stresms increases."
+  }
+]

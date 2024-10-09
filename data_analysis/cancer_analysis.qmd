@@ -1,0 +1,211 @@
+---
+title: "Breat Cancer Analysis"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r message=FALSE, warning=FALSE}
+library(readr)
+library(tidyverse)
+library(pander)
+library(DT)
+b_cancer <- read_csv("~/Data/breast_cancer/breast_cancer.csv")
+```
+
+
+```{r message=FALSE, warning=FALSE}
+cancer <- b_cancer %>% mutate(
+  diagnosis = ifelse(diagnosis == 'M',1,0)
+)%>% 
+  rename("concave_points_mean"  = "concave points_mean" )
+```
+
+## Introduction 
+
+Globally, breast cancer is the most prevalent cancer among women and ranks second in terms of mortality rates. The diagnosis process for breast cancer typically begins when an unusual lump is detected, either through self-examination or an x-ray, or when a small calcium deposit is observed on an x-ray. Once a suspicious lump is identified, a doctor will perform a diagnosis to ascertain if it is Malignant (cancerous) and whether it has metastasized to other parts of the body or if it is benign (not cancerous). 
+
+The purpose of the model being created is to detect accurately what type of tumor is found in the breast with the given features. The model will predict if the tumor is Malignant (cancerous).
+
+When a diagnosis is being done, ten real-valued features are computed for each cell nucleus:
+
+a) radius (mean of distances from center to points on the perimeter)
+
+b) texture (standard deviation of gray-scale values)
+
+c) perimeter (the measure of the core tumor)
+
+d) area (the measure of the breast tissue)
+
+e) smoothness (local variation in radius lengths)
+
+f) compactness (perimeter^2 / area - 1.0)
+
+g) concavity (severity of concave portions of the contour)
+
+h) concave points (number of concave portions of the contour)
+
+i) symmetry (how much of a proportion difference.)
+
+j) fractal dimension ("coastline approximation" - 1)
+
+## Data
+
+The dataset used is the Breast Cancer Wisconsin (Diagnostic) Data Set from kaggle (https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data). 
+
+```{r}
+datatable(cancer)
+```
+
+Note: In the diagnosis column, the 1 = malignant and 0 = Benign.
+
+## Features used
+
+These were the features the model uses for it's predictions:
+
+radius_mean: mean of distances from center to points on the perimeter
+
+radius_se: standard error for the mean of distances from center to points on the perimeter
+
+symmetry_worst: "worst" or largest mean value for local variation in radius lengths
+
+texture_worst: "worst" or largest mean value for standard deviation of gray-scale values
+
+concave_points_mean: "worst" or largest mean value for number of concave portions of the contour
+
+## Model
+
+For the predicting if the tumor is cancerous or not, I chose this model:
+
+```{r message=FALSE, warning=FALSE}
+myglm <- glm(diagnosis ~ radius_mean + 
+               radius_se  + 
+               symmetry_worst + 
+               texture_worst + 
+               concave_points_mean
+             , data=cancer, family=binomial)
+summary(myglm) %>% pander()
+```
+
+Each variable in the model will be graphically represented in the next section below.
+
+## Graphical Representation
+
+The variables in the model are interpreted below: 
+
+```{r}
+b <- coef(myglm)
+drawit <- function(RM, RS=1.5, SW=0.1, TW=28, CPM=0.1){
+  1/(1+exp(-(b[1] + b[2]*RM + b[3]*RS + b[4]*SW + b[5]*TW + b[6]*CPM)))
+}
+
+ggplot(cancer, aes(x=radius_mean, y=diagnosis)) + 
+  
+  stat_function(fun=drawit, args=list(), aes(color="1.5"), linewidth = 1.25) +
+  stat_function(fun=drawit, args=list(RS=1), aes(color="1"), linewidth = 1) + 
+  stat_function(fun=drawit, args=list(RS=2), aes(color="2"), linewidth = 1.5) + 
+  
+  
+  labs(y = "Probability of having a maligant tumor",
+       color = "radius_se values",
+       title = "When the radius_se changes and other variables held constant ") +
+  
+  theme(plot.title = element_text(face = "bold", hjust=0.5))
+```
+
+
+```{r}
+ggplot(cancer, aes(x=radius_mean, y=diagnosis)) + 
+  
+  stat_function(fun=drawit, args=list(), aes(color="0.1"), linewidth = 1.25) +
+  stat_function(fun=drawit, args=list(SW=0.05), aes(color="0.05"), linewidth = 1) + 
+  stat_function(fun=drawit, args=list(SW=0.3), aes(color="0.3"), linewidth = 1.5) + 
+  
+  
+  labs(y = "Probability of having a maligant tumor",
+       color = "symmetry_worst values",
+       title = "When the symmetry_worst changes and other variables held constant ") +
+  
+  theme(plot.title = element_text(face = "bold", hjust=0.5))
+```
+
+
+
+```{r}
+ggplot(cancer, aes(x=radius_mean, y=diagnosis)) + 
+  
+  stat_function(fun=drawit, args=list(), aes(color="28"), linewidth = 1.25) +
+  stat_function(fun=drawit, args=list(TW=24), aes(color="24"), linewidth = 1) + 
+  stat_function(fun=drawit, args=list(TW=35), aes(color="35"), linewidth = 1.5) + 
+  
+  labs(y = "Probability of having a maligant tumor",
+       color = "texture_worst values",
+       title = "When the texture_worst changes and other variables held constant ") +
+  
+  theme(plot.title = element_text(face = "bold", hjust=0.5))
+```
+
+
+```{r}
+ggplot(cancer, aes(x=radius_mean, y=diagnosis)) + 
+  
+  stat_function(fun=drawit, args=list(), aes(color="0.1"), linewidth = 1.25) +
+  stat_function(fun=drawit, args=list(CPM=0.05), aes(color="0.05"), linewidth = 1) + 
+  stat_function(fun=drawit, args=list(CPM=0.2), aes(color="0.2"), linewidth = 1.5) + 
+  
+  labs(y = "Probability of having a maligant tumor",
+       color = "concave_points_mean",
+       title = "When the concave_points_mean changes and other variables held constant ") +
+  
+  theme(plot.title = element_text(face = "bold", hjust=0.5))
+```
+
+Each of the above plots shows how increasing or decreasing the variables affect the odds. 
+
+## Interpretation
+
+We will interpret each of the variables used in the model:
+
+radius_mean: From the model, we see that holding all other variables constant, each one unit increase to the radius_mean make the tumor 2.56 more times likely to be a malignant tumor.
+
+radius_se: From the model, we see that holding all other variables constant, each 0.5 (half) unit increase to the radius_se make the tumor 20.52 more times likely to be a malignant tumor.
+
+symmetry_worst: From the model, we see that holding all other variables constant, each 0.1 unit increase to the symmetry_worst make the tumor 13.818 more times likely to be a malignant tumor.
+
+texture_worst: From the model, we see that holding all other variables constant, each one unit increase to the texture_worst make the tumor 1.39 more times likely to be a malignant tumor.
+
+concave_points_mean: From the model, we see that holding all other variables constant, each 0.01 unit increase to the concave_points_mean make the tumor 2.131 more times likely to be a malignant tumor.
+
+## Model's Performance
+
+```{r message=FALSE, warning=FALSE}
+set.seed(14)
+n <- nrow(cancer)
+
+keep <- sample(1:n, 400)#putSomeNumberHere that is about 60-70% of your data set's size
+mytrain <- cancer[keep, ]
+mytest <- cancer[-keep, ]
+  
+train.glm <- glm(diagnosis ~ radius_mean + 
+               radius_se  + 
+               symmetry_worst + 
+               texture_worst + 
+               concave_points_mean
+             , data=cancer, family=binomial)
+
+mypreds <- predict(train.glm, mytest, type="response")
+
+callit <- ifelse(mypreds > 0.6, 1, 0) #you can put whatever you want for the 0.9 value
+
+table(mytest$diagnosis, callit)
+```
+
+This is the percentage of correctly classified students this model gives.
+
+```{r}
+pcc <- (163/168)
+pcc
+```

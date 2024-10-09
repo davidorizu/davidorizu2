@@ -1,0 +1,145 @@
+---
+title: "Car Prices"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+editor_options: 
+  chunk_output_type: console
+---
+
+<br>
+
+```{r message=FALSE, warning=FALSE}
+library(mosaic)
+library(tidyverse)
+library(pander)
+library(car)
+library(DT)
+```
+
+```{r, include=FALSE}
+# Play this chunk to load the data.
+CarPrices <- read.csv("CarPrices.csv", header=TRUE)
+```
+
+```{r}
+cp <- CarPrices %>%
+  filter(Make == "Pontiac" | Make == "SAAB")
+```
+
+```{r}
+carlm <- lm(Price ~ Mileage + Make + Mileage:Make, data=cp)
+```
+
+## Background
+
+Ever had to pick between two Makes of cars? Anyone that has bough a car would probably say yes. We want to pick between a Pontiac and a SAAB. This would be the first car this person buys, and he wants to know with would give him a better value when he wants to sell it. We are going to check how the price of both makes are affected by their mileage. We are going to predict the price of both makes of cars by the mileage on it. 
+
+## Data
+
+The data we used for this test comes from a dataset of various car makes, models, and information about them. The dataset was filtered to only show data on Pontiac and SAAB cars. The dataset is displayed below. 
+
+```{r}
+datatable(cp)
+```
+
+#### Test Choice
+
+When reading the background, we get the question of the test which is; Which car would have the highest predicted price based on the mileage. We see a key word which is predict, so the first test that comes to mind is a linear regression. Because we are analyzing the price and mileage of two different car makes, we may have to use a multiple linear regression. 
+
+## Diagnostic Plot
+
+We will make the diagnostic plots of a multiple linear regression to see if we meet the requirement to carry out this test. 
+
+```{r message=FALSE, warning=FALSE}
+par(mfrow=c(1,3))
+plot(carlm, which=1)
+qqPlot(carlm$residuals, main = "QQ-Plot of the residuals", id=FALSE)
+plot(carlm$residuals, main="Residuals vs Order")
+```
+
+The plot on the left titled "Residuals vs Fitted" is made to check if there is a linear relationship, and also if the variance is constant. As we can see, there is no obvious trend in the plot, so we can assume there is a linear relationship. The spread of the data points are not so consistent across all fitted values, so the variance may not be constant (but we will continue with the analysis). 
+
+The graph at the middle shows a qq-plot of the data points. We see that not all data points are within the boundaries, which is a sign that the data is not normal. However, the sample size is large (264>30) so because of the central limit theory, we can assume normality.  
+
+The graph on the right shows a plot for the residuals against the order of occurrence. The plot is used to check if the error terms are independent. We see from the graph that there is no trend visible, so we can assume that the error terms are independent.  
+
+## Analysis
+
+This analysis attempts to predict the price of each car makes and by the mileage on the car and compare them using a multiple linear regression. Specifically,
+
+$$
+  \underbrace{Y_i}_{\text{Price}} = \overbrace{\beta_0 + \beta_1 \underbrace{X_{i1}}_{\text{Mileage}}}^{\text{Pontiac Line}} + \overbrace{\beta_2 \underbrace{X_{i2}}_{\text{1 if SAAB}} + \beta_3 \underbrace{X_{i1} X_{i2}}_{\text{Interaction}}}^{\text{SAAB Line}} + \epsilon_i
+$$
+
+where $\epsilon_i\sim N(0,\sigma^2)$ and $X_{i2} = 0$ when the vehicle is a Pontiac and $X_{i2} = 1$ when the vehicle is a SAAB This forced 0, 1 encoding for $X_{i2}$ produces the following models.
+
+The hypotheses for our study concern the change in the y-intercept ($\beta_2$) and the change in the slope ($\beta_3$). 
+
+If the change in y-intercepts is zero, then the y-intercepts, which represent the average cost of a brand new vehicle, are the same for the Pontiac and SAAB. If $\beta_2$ is greater than zero, then the SAAB costs more on average than the Pontiac when brand new, and if $\beta_2$ is less than zero, then the SAAB costs less (change in y-intercept = y-intercept of SAAB - y-intercept of Pontiac).
+
+$$
+  H_0: \beta_2 = 0 \quad \text{(Equal average cost when brand new)} \\
+  H_a: \beta_2 \neq 0 \quad \text{(Non-equal average cost when brand new)}
+$$
+
+If $\beta_3$ is zero, then the slopes of the two lines are the same. This would imply that the rate of depreciation is the same for both the Pontiac and SAAB. However, if the slopes differ ($\beta_3 \neq 0$), positively then SAAB has a steeper slope than Pontiac (change in slope = slope of SAAB - slope of Pontiac).
+
+
+$$
+  H_0: \beta_3 = 0 \quad \text{(Equal rates of depreciation)} \\
+  H_a: \beta_3 \neq 0 \quad \text{(Non-equal rates of depreciation)}
+$$
+
+The Level of significance is:
+
+$$
+  \alpha = 0.05
+$$
+
+## Test Results
+
+We carried out a multiple linear regression test and the results were the below:
+
+```{r}
+pander(summary(carlm))
+```
+
+From the test results, we see that both the change in the y-intercept and the change in the slope are significant because both p-values are less than 0.05. We can conclude that there is a difference in the average cost of either vehicle when brand new. Since the p-value for the change in y-intercept was positive (1.86e-24), SAAB cost more on average than Pontiac. We also conclude that there is a difference in the rate of price depreciation in both makes. Since the p-value of the change in slope is not zero, one vehicle make loses its value faster than the other.
+
+
+## Graphical summary
+
+To show our results visually, we made a scatter plot and fitted two line based on each vehicle make.  
+
+```{r}
+b <- coef(carlm)
+```
+
+```{r}
+par(mfrow=c(1,1))
+palette(c("purple", "orange"))
+plot(Price ~ Mileage, data=cp, col=as.factor(Make), pch=16, ylab = ("Price($)"), xlab=("Milage of the vehicle (miles)"), main= "Price and decrese in value \n Pontiac vs SAAB", yaxt="n")
+legend("topright", legend=c("Pontiac", "SAAB"), col=palette(), pch=16, text.col = palette())
+curve(b[1]+ b[2]*x, col="purple", add=TRUE)
+curve((b[1]+b[3])+ (b[2]+b[4])*x, col="orange", add=TRUE)
+axis(2, at=c(15000, 20000, 25000, 30000, 35000), labels=c("$15k", "$20k", "$25k", "$30k", "$35k"), las=2)
+```
+
+The equation of the estimated regression equation from the scatter plot above is given by:
+
+$$
+  \underbrace{Y_i}_{\text{Price}} = \overbrace{20223.79 - 0.093769 \underbrace{X_{i1}}_{\text{Mileage}}}^{\text{Pontiac Line}} + \overbrace{13649.8 {X_{i2}} - 0.11510 {X_{i1} X_{i2}}}^{\text{SAAB Line}} 
+$$
+The graph tells us that for every 1 mile increase in mileage of a Pontiac car, the price of the car reduces by 0.093769 dollars, while for every 1 mile increase in mileage of a SAAB car, the price of the car reduces by 0.2088749 dollars.
+
+The graph also tells us that a newly bought Pontiac car with no mileage would cost 20223.79 dollars, while for a SAAB car it would cost 33873.58 dollars. 
+
+## Conclusion
+
+Now, we can see some information from the statistical test and the visual representative. We can see that the if both lines on the graph are extended they will touch the y-axis at different point, which means the y-intercepts are different. We can see that SAAB cars on average would cost more because the the y-intercept is higher than that of Pontiac. This also corresponds with the test results. 
+
+It is not as obvious, but We also see that the the slope of SAAB is steeper than the slope of Pontiac. Since both of them are going downwards and have negative slope, we see that the prices depreciate as we would expect. Because the slope of SAAB vehicles is steeper, it means that SAAB vehicles lost their value more with an increase in mileage. This also matches with the test results. 
+
+

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="David Orizu">
+<meta name="dcterms.date" content="2024-10-09">
+
+<title>David Orizu Portfolio - Spotify Analysis - What does it take to make the top charts</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Images/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">David Orizu Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resume.html" rel="" target="">
+ <span class="menu-text">My Resume</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../data_analysis/car_prices.html" rel="" target="">
+ <span class="menu-text">Data Analysis</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../Machine_Learning/breast_cancer.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Machine Learning</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Machine_Learning/top_spotify_analysis.html">Music Analysis</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Machine_Learning/breast_cancer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Breast Cancer Detection</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Machine_Learning/bikes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bikes Sales</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Machine_Learning/housing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Housing Estimates</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Machine_Learning/top_spotify_analysis.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Music Analysis</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#analysis---look-into-some-music-variables" id="toc-analysis---look-into-some-music-variables" class="nav-link" data-scroll-target="#analysis---look-into-some-music-variables">Analysis - Look into some music variables</a></li>
+  <li><a href="#making-a-model---to-predict-if-a-song-is-in-top-100" id="toc-making-a-model---to-predict-if-a-song-is-in-top-100" class="nav-link" data-scroll-target="#making-a-model---to-predict-if-a-song-is-in-top-100">Making a Model - to predict if a song is in top 100</a></li>
+  <li><a href="#exploring-some-variables" id="toc-exploring-some-variables" class="nav-link" data-scroll-target="#exploring-some-variables">Exploring some variables</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Spotify Analysis - What does it take to make the top charts</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>David Orizu </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 9, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(caret)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(openxlsx)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(stringr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> types <span class="im">import</span> GeneratorType</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="im">import</span> altair <span class="im">as</span> alt</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="im">from</span> sklearn.naive_bayes <span class="im">import</span> GaussianNB</span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingClassifier</span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>It would be difficult to find a person that does not or has never listened to music. On streaming services, movies, commercials, toys, or the person beside you humming a song, music is everywhere and the artists who make these songs aim to have their songs hit the top charts.</p>
+<p>This makes us think, what can an artist do to make his songs one of the best. Are there variables that affect how high a song gets on the charts.</p>
+<p>We will focus on the Spotify charts and specifically the top 100 then analyze if there are variables that affect a songs position.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>top_spotify <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"C:/Users/chidu/OneDrive/Documents/Data Wrangling &amp; visualization DS350/Data/spotify-2023.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>top_spotify<span class="sc">$</span>streams <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(top_spotify<span class="sc">$</span>streams)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>top_spotify<span class="sc">$</span>in_deezer_playlists <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(top_spotify<span class="sc">$</span>in_deezer_playlists)</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>top_spotify<span class="sc">$</span>in_shazam_charts <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(top_spotify<span class="sc">$</span>in_shazam_charts)</span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a>spotify <span class="ot">&lt;-</span> top_spotify <span class="sc">%&gt;%</span> </span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(streams))<span class="sc">%&gt;%</span> </span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-9"><a href="#cb4-9"></a>  <span class="at">multiple_artist =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-10"><a href="#cb4-10"></a>  artist_count <span class="sc">&lt;=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb4-11"><a href="#cb4-11"></a>  artist_count <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>), <span class="at">top100 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-13"><a href="#cb4-13"></a>  <span class="fu">row_number</span>() <span class="sc">&lt;</span> <span class="dv">101</span> <span class="sc">~</span> <span class="dv">1</span>, </span>
+<span id="cb4-14"><a href="#cb4-14"></a>  <span class="fu">row_number</span>() <span class="sc">&gt;</span> <span class="dv">100</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>), <span class="at">rank =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-16"><a href="#cb4-16"></a>    <span class="fu">row_number</span>() <span class="sc">&lt;=</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">"Top 10"</span>,</span>
+<span id="cb4-17"><a href="#cb4-17"></a>    <span class="fu">row_number</span>() <span class="sc">&lt;=</span> <span class="dv">50</span> <span class="sc">~</span> <span class="st">"Top 50"</span>,</span>
+<span id="cb4-18"><a href="#cb4-18"></a>    <span class="fu">row_number</span>() <span class="sc">&lt;=</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"Top 100"</span>,</span>
+<span id="cb4-19"><a href="#cb4-19"></a>    <span class="fu">row_number</span>() <span class="sc">&lt;=</span> <span class="dv">200</span> <span class="sc">~</span> <span class="st">"Top 200"</span>,</span>
+<span id="cb4-20"><a href="#cb4-20"></a>    <span class="fu">row_number</span>() <span class="sc">&lt;=</span> <span class="dv">500</span> <span class="sc">~</span> <span class="st">"Top 500"</span>,</span>
+<span id="cb4-21"><a href="#cb4-21"></a>    <span class="fu">row_number</span>() <span class="sc">&lt;=</span> <span class="dv">950</span> <span class="sc">~</span> <span class="st">"Top 950"</span>,</span>
+<span id="cb4-22"><a href="#cb4-22"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a>  </span>
+<span id="cb4-24"><a href="#cb4-24"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> mode, <span class="at">values_from =</span> mode, <span class="at">values_fn =</span> length, <span class="at">values_fill =</span> <span class="dv">0</span>) </span>
+<span id="cb4-25"><a href="#cb4-25"></a></span>
+<span id="cb4-26"><a href="#cb4-26"></a>spotify<span class="sc">$</span>key <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(spotify<span class="sc">$</span>key <span class="sc">==</span> <span class="st">""</span>, <span class="st">"N"</span>, spotify<span class="sc">$</span>key)</span>
+<span id="cb4-27"><a href="#cb4-27"></a></span>
+<span id="cb4-28"><a href="#cb4-28"></a>spotify <span class="ot">&lt;-</span> spotify <span class="sc">%&gt;%</span> <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> key, <span class="at">values_from =</span> key, <span class="at">values_fn =</span> length, <span class="at">values_fill =</span> <span class="dv">0</span>)</span>
+<span id="cb4-29"><a href="#cb4-29"></a></span>
+<span id="cb4-30"><a href="#cb4-30"></a>spotify <span class="ot">&lt;-</span> <span class="fu">select</span>(spotify, <span class="sc">-</span>N)</span>
+<span id="cb4-31"><a href="#cb4-31"></a></span>
+<span id="cb4-32"><a href="#cb4-32"></a>spotify <span class="ot">&lt;-</span> spotify[<span class="fu">complete.cases</span>(spotify<span class="sc">$</span>top100), ]</span>
+<span id="cb4-33"><a href="#cb4-33"></a></span>
+<span id="cb4-34"><a href="#cb4-34"></a><span class="do">## change column names that have special characters.</span></span>
+<span id="cb4-35"><a href="#cb4-35"></a>spotify <span class="ot">&lt;-</span> spotify <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">CSharp =</span> <span class="st">'C#'</span>, <span class="at">FSharp =</span> <span class="st">'F#'</span>, <span class="at">GSharp =</span> <span class="st">'G#'</span>, <span class="at">ASharp =</span> <span class="st">'A#'</span>, <span class="at">DSharp =</span> <span class="st">'D#'</span>)</span>
+<span id="cb4-36"><a href="#cb4-36"></a></span>
+<span id="cb4-37"><a href="#cb4-37"></a>spotify<span class="sc">$</span>artist.s._name <span class="ot">&lt;-</span> <span class="fu">str_to_lower</span>(spotify<span class="sc">$</span>artist.s._name)</span>
+<span id="cb4-38"><a href="#cb4-38"></a></span>
+<span id="cb4-39"><a href="#cb4-39"></a>spotify <span class="ot">&lt;-</span> spotify <span class="sc">%&gt;%</span> </span>
+<span id="cb4-40"><a href="#cb4-40"></a>  <span class="fu">mutate</span>(<span class="at">taylor_swift =</span> <span class="fu">ifelse</span>(<span class="fu">str_detect</span>(artist.s._name, <span class="st">"taylor swift"</span>), <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb4-41"><a href="#cb4-41"></a>         <span class="at">bad_bunny =</span> <span class="fu">ifelse</span>(<span class="fu">str_detect</span>(artist.s._name, <span class="st">"bad bunny"</span>), <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb4-42"><a href="#cb4-42"></a>         <span class="at">the_weeknd =</span> <span class="fu">ifelse</span>(<span class="fu">str_detect</span>(artist.s._name, <span class="st">"the weeknd"</span>), <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb4-43"><a href="#cb4-43"></a>         <span class="at">drake =</span> <span class="fu">ifelse</span>(<span class="fu">str_detect</span>(artist.s._name, <span class="st">"drake"</span>), <span class="dv">1</span>, <span class="dv">0</span>), </span>
+<span id="cb4-44"><a href="#cb4-44"></a>         <span class="at">peso_pluma =</span> <span class="fu">ifelse</span>(<span class="fu">str_detect</span>(artist.s._name, <span class="st">"peso pluma"</span>), <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb4-45"><a href="#cb4-45"></a></span>
+<span id="cb4-46"><a href="#cb4-46"></a>spotify<span class="sc">$</span>rank <span class="ot">&lt;-</span> <span class="fu">factor</span>(spotify<span class="sc">$</span>rank, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Top 10"</span>, <span class="st">"Top 50"</span>, <span class="st">"Top 100"</span>, <span class="st">"Top 200"</span>, <span class="st">"Top 500"</span>, <span class="st">"Top 950"</span>))</span>
+<span id="cb4-47"><a href="#cb4-47"></a></span>
+<span id="cb4-48"><a href="#cb4-48"></a><span class="fu">write.csv</span>(spotify, <span class="st">"spotify_data.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="analysis---look-into-some-music-variables" class="level2">
+<h2 class="anchored" data-anchor-id="analysis---look-into-some-music-variables">Analysis - Look into some music variables</h2>
+<p>We will look into some of the variables that we would probably be interested in.</p>
+<section id="streams" class="level4">
+<h4 class="anchored" data-anchor-id="streams">Streams</h4>
+<p>We will make a simple visual to show explore a little into streams as a variable.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>rank_streams <span class="ot">&lt;-</span> spotify <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(rank) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">summarise</span>(<span class="at">average_s =</span> <span class="fu">mean</span>(streams, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="fu">na.omit</span>()</span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="fu">ggplot</span>(rank_streams, <span class="fu">aes</span>(<span class="at">x=</span>rank, <span class="at">y=</span>average_s)) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">geom_col</span>(<span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>  </span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Rank"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8"></a>       <span class="at">y=</span><span class="st">"Average Streams"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9"></a>       <span class="at">title =</span> <span class="st">"The average number of streams for each rank"</span>) <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>  </span>
+<span id="cb5-11"><a href="#cb5-11"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> <span class="dv">2995662940</span>, <span class="at">label =</span> <span class="st">"2,895,662,936"</span>, <span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a>  </span>
+<span id="cb5-13"><a href="#cb5-13"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="dv">2165210153</span>, <span class="at">label =</span> <span class="st">"2,065,210,153"</span>, <span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>  </span>
+<span id="cb5-15"><a href="#cb5-15"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">3</span>, <span class="at">y =</span> <span class="dv">1585441068</span>, <span class="at">label =</span> <span class="st">"1,485,441,068"</span>, <span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a>  </span>
+<span id="cb5-17"><a href="#cb5-17"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">4</span>, <span class="at">y =</span> <span class="dv">1119293511</span>, <span class="at">label =</span> <span class="st">"1,019,293,511"</span>, <span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a>  </span>
+<span id="cb5-19"><a href="#cb5-19"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">5</span>, <span class="at">y =</span> <span class="dv">557477778</span>, <span class="at">label =</span> <span class="st">"462,477,778"</span>, <span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a>  </span>
+<span id="cb5-21"><a href="#cb5-21"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">6</span>, <span class="at">y =</span> <span class="dv">209883749</span>, <span class="at">label =</span> <span class="st">"139,883,749"</span>, <span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb5-22"><a href="#cb5-22"></a>  </span>
+<span id="cb5-23"><a href="#cb5-23"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust=</span><span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="top_spotify_analysis_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The above graph shows the average streams for each <code>rank</code> category. As we would expect, the number of streams increases the higher the rank, so they are directly proportional. The number of streams was actually used to place songs in their respective ranks.</p>
+</section>
+<section id="key" class="level4">
+<h4 class="anchored" data-anchor-id="key">Key</h4>
+<p>We will look to see if the key of the song (major or minor) has an effect on the rank of the song.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>percent_mode <span class="ot">&lt;-</span> spotify <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">group_by</span>(rank) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">summarise</span>(<span class="at">Major =</span> <span class="fu">mean</span>(Major) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>            <span class="at">Minor =</span> <span class="fu">mean</span>(Minor) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">filter</span>(rank <span class="sc">!=</span> <span class="st">"Other"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6"></a>percent_mode<span class="sc">$</span>rank <span class="ot">&lt;-</span> <span class="fu">factor</span>(percent_mode<span class="sc">$</span>rank, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Top 10"</span>, <span class="st">"Top 50"</span>, <span class="st">"Top 100"</span>, <span class="st">"Top 200"</span>, <span class="st">"Top 500"</span>, <span class="st">"Top 950"</span>))</span>
+<span id="cb6-7"><a href="#cb6-7"></a></span>
+<span id="cb6-8"><a href="#cb6-8"></a>percent_mode <span class="ot">&lt;-</span> percent_mode <span class="sc">%&gt;%</span> </span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">names_to =</span> <span class="st">"mode"</span>, </span>
+<span id="cb6-10"><a href="#cb6-10"></a>               <span class="at">values_to =</span> <span class="st">"percentage"</span>, <span class="at">values_drop_na =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-11"><a href="#cb6-11"></a></span>
+<span id="cb6-12"><a href="#cb6-12"></a></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="fu">ggplot</span>(percent_mode, <span class="fu">aes</span>(<span class="at">x=</span>rank, <span class="at">y=</span>percentage, <span class="at">color =</span> mode)) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a>  </span>
+<span id="cb6-16"><a href="#cb6-16"></a>  <span class="fu">geom_line</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">group =</span> mode)) <span class="sc">+</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a>  </span>
+<span id="cb6-18"><a href="#cb6-18"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span>  <span class="fu">paste0</span>(<span class="fu">round</span>(percentage, <span class="dv">2</span>), <span class="st">"%"</span>)), <span class="at">size =</span><span class="dv">3</span>, <span class="at">data =</span> percent_mode) <span class="sc">+</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a>  </span>
+<span id="cb6-20"><a href="#cb6-20"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Rank"</span>,</span>
+<span id="cb6-21"><a href="#cb6-21"></a>       <span class="at">y=</span><span class="st">"Percentage (%)"</span>,</span>
+<span id="cb6-22"><a href="#cb6-22"></a>       <span class="at">color =</span> <span class="st">"Mode"</span>,</span>
+<span id="cb6-23"><a href="#cb6-23"></a>       <span class="at">title =</span> <span class="st">"The percentage of songs that have each key for each rank"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="top_spotify_analysis_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>From the above plot, we see that the percentage for each key varies based on the rank category. Looking at the top 100, we see that 72% of songs in this category has a <code>Major key</code> while the remaining 28% have a minor key. This would mean that a song would have a better chance being in the top 100 if it has a <code>Major key</code></p>
+</section>
+</section>
+<section id="making-a-model---to-predict-if-a-song-is-in-top-100" class="level2">
+<h2 class="anchored" data-anchor-id="making-a-model---to-predict-if-a-song-is-in-top-100">Making a Model - to predict if a song is in top 100</h2>
+<p>To investigate into this more, we will make a model that would predict if a song would make it to the top 100. This would help to know what variables have a greater effect of a song hitting top 100, which would sound the effect on a song going higher in the charts.</p>
+<p>For the model, Random Forest classification was used mainly because the data had continuous and categorical variables.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>file_path <span class="op">=</span> <span class="vs">r"C:\Users\chidu\OneDrive\Documents\Data Wrangling &amp; visualization DS350\DS350_WI24_Orizu_Davi\spotify_data.csv"</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co"># Read the CSV file into a DataFrame, specifying the encoding</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>spotify2 <span class="op">=</span> pd.read_csv(file_path, encoding<span class="op">=</span><span class="st">"latin1"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co"># Iterate over column names and remove periods</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>new_column_names <span class="op">=</span> [col.replace(<span class="st">'.'</span>, <span class="st">''</span>) <span class="cf">for</span> col <span class="kw">in</span> spotify2.columns]</span>
+<span id="cb7-8"><a href="#cb7-8"></a></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co"># Rename the columns with the new names</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>spotify2 <span class="op">=</span> spotify2.rename(columns<span class="op">=</span><span class="bu">dict</span>(<span class="bu">zip</span>(spotify2.columns, new_column_names)))</span>
+<span id="cb7-11"><a href="#cb7-11"></a></span>
+<span id="cb7-12"><a href="#cb7-12"></a>spotify2[<span class="st">'in_deezer_playlists'</span>] <span class="op">=</span> spotify2[<span class="st">'in_deezer_playlists'</span>].astype(<span class="bu">float</span>)</span>
+<span id="cb7-13"><a href="#cb7-13"></a></span>
+<span id="cb7-14"><a href="#cb7-14"></a>spotify2[<span class="st">'in_shazam_charts'</span>] <span class="op">=</span> spotify2[<span class="st">'in_shazam_charts'</span>].astype(<span class="bu">float</span>)</span>
+<span id="cb7-15"><a href="#cb7-15"></a></span>
+<span id="cb7-16"><a href="#cb7-16"></a>spotify2.dropna(inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>x <span class="op">=</span> spotify2.<span class="bu">filter</span>([<span class="st">"artist_count"</span>, <span class="st">"released_year"</span>, <span class="st">"released_month"</span>, <span class="st">"released_day"</span>, <span class="st">"in_spotify_playlists"</span>, <span class="st">"in_spotify_charts"</span>, <span class="st">"in_apple_playlists"</span>, <span class="st">"in_apple_charts"</span>, <span class="st">"in_deezer_playlists"</span>, <span class="st">"in_deezer_charts"</span>, <span class="st">"in_shazam_charts"</span>, <span class="st">"bpm"</span>, <span class="st">"danceability_"</span>, <span class="st">"valence_"</span>, <span class="st">"energy_"</span>, <span class="st">"acousticness_"</span>, <span class="st">"instrumentalness_"</span>, <span class="st">"liveness_"</span>, <span class="st">"speechiness_"</span>, <span class="st">"multiple_artist"</span>, <span class="st">"Major"</span>, <span class="st">"Minor"</span>, <span class="st">"F"</span>, <span class="st">"D"</span>, <span class="st">"the_weeknd"</span>])</span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a>y <span class="op">=</span> spotify2.top100</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>x_train, x_test, y_train, y_test <span class="op">=</span> train_test_split(x, y, test_size <span class="op">=</span> <span class="fl">.34</span>, random_state <span class="op">=</span> <span class="dv">76</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<style>#sk-container-id-1 {color: black;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier(max_depth=50)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestClassifier</label><div class="sk-toggleable__content"><pre>RandomForestClassifier(max_depth=50)</pre></div></div></div></div></div>
+</div>
+</div>
+<section id="accuracy-result" class="level4">
+<h4 class="anchored" data-anchor-id="accuracy-result">Accuracy result</h4>
+<p>After running the model:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># test how accurate predictions are</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, metrics.accuracy_score(y_test, y_predictions))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Accuracy: 0.9716312056737588</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>feature_df <span class="op">=</span> pd.DataFrame({<span class="st">'features'</span>:x.columns, <span class="st">'importance'</span>:classifier.feature_importances_})</span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a></span>
+<span id="cb12-4"><a href="#cb12-4"></a>feature_df.to_excel(<span class="st">'stfy_importance.xlsx'</span>, index<span class="op">=</span><span class="va">False</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="the-level-of-importance-of-each-variable" class="level4">
+<h4 class="anchored" data-anchor-id="the-level-of-importance-of-each-variable">The level of importance of each variable</h4>
+<p>A key reason for making this model was to see what variables are of most importance to the model, so the below show a bar chart of the importance of most variables ordered.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>importance_df <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="st">"C:/Users/chidu/OneDrive/Documents/Data Wrangling &amp; visualization DS350/DS350_WI24_Orizu_Davi/week_14/stfy_importance.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">ggplot</span>(importance_df, <span class="fu">aes</span>(<span class="at">x=</span>importance, <span class="at">y=</span><span class="fu">reorder</span>(features, importance))) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">geom_col</span>(<span class="at">color=</span><span class="st">"black"</span>, <span class="at">fill=</span><span class="st">"purple"</span>) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Importance"</span>, <span class="at">y =</span> <span class="st">"Variable"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4"></a>       <span class="at">title =</span> <span class="st">"Importance scale of each variable"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="top_spotify_analysis_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>From the above chart, we can see what variables are of most importance. It appears that the number of times a sound is in Deezer playlists has a large impacts on how high in the charts a sound goes (Deezer is a French music streaming service).</p>
+<p>A song being in Spotify and apple playlists also have an impact on the song’s performance. This is probably because a song being in a playlists means it gets listened to more.</p>
+<p>Another interesting finding is the if <code>The weekend</code> a R&amp;B artist is on a song it has an impact on the song’s place in the charts.</p>
+<p>There were some variables that did not have much of an impact of the songs like: some of the key, multiple artists being on the track</p>
+</section>
+</section>
+<section id="exploring-some-variables" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-some-variables">Exploring some variables</h2>
+<p>We will look into some of the variables to see the patterns.</p>
+<section id="deezer-playlists" class="level4">
+<h4 class="anchored" data-anchor-id="deezer-playlists">Deezer playlists</h4>
+<p>we explored the variable of the number of Deezer playlists the song is in. The plot before shows its relationship with streams.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">ggplot</span>(spotify, <span class="fu">aes</span>(<span class="at">x=</span>in_deezer_playlists, <span class="at">y=</span>streams)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>  </span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>  </span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb15-6"><a href="#cb15-6"></a>  </span>
+<span id="cb15-7"><a href="#cb15-7"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1000000000</span>, <span class="dv">2000000000</span>, <span class="dv">3000000000</span>), <span class="at">label =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"1 Billion"</span>, <span class="st">"2 Billion"</span>, <span class="st">"3 Billion"</span>)) <span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>  </span>
+<span id="cb15-9"><a href="#cb15-9"></a>  <span class="fu">labs</span>(<span class="at">x=</span> <span class="st">"Count in deezer playlists"</span>,</span>
+<span id="cb15-10"><a href="#cb15-10"></a>       <span class="at">y=</span><span class="st">"Streams"</span>,</span>
+<span id="cb15-11"><a href="#cb15-11"></a>       <span class="at">title =</span> <span class="st">"The relationship between the number of streams and the number of deezer playlists"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="top_spotify_analysis_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>From the graph, we see that it the variables have a linear relationship. This means that being in Deezer playlist is direct proportional to the number of streams. This means that as the number in Deezer playlist increses, the number of stresms increases.</p>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">David Orizu 2024</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/david-orizu-935508248/">
+      <i class="bi bi-linkedin" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

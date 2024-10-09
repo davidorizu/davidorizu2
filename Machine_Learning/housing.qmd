@@ -1,0 +1,10 @@
+---
+title: "Housing Estimates"
+editor: visual
+---
+
+
+<iframe src="Housing_Estimates.pdf" width="100%" height="500"></iframe>
+
+
+[Click to view colab](https://colab.research.google.com/drive/1ub_lvCXRruIhFat22L37sm0T469-mFkh?usp=sharing)

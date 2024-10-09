@@ -1,0 +1,172 @@
+---
+title: "Is Reaction Time Affected by any Variable?"
+output: 
+  html_document:
+    theme: cerulean
+    code_folding: hide
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(mosaic)
+library(DT)
+library(pander)
+library(car)
+library(tidyverse)
+
+# Record your data from your own mini experiment in Excel.
+# Save the data as a .csv file in the Data folder of the Statistics-Notebook.
+
+# Read in the data
+reactiont <- read_csv("Reaction_time_data.csv") 
+```
+
+<!-- Instructions:
+
+Perform your own mini experiment using two factors that each have at least two levels. Analyze your data using a two-way ANOVA.
+
+Studying reaction time is recommended because the data is quickly collected.
+
+While you should use the warpbreaks example analyses as your guide on how to properly complete this analysis, you should also be creative in your final delivery of this analysis. If you copy the format and approach of the example analyses, be sure to give credit in your document to these example analyses. You could write something like, "This work is modeled after the [warpbreaks](https://byuistats.github.io/Statistics-Notebook/Analyses/ANOVA/Examples/warpbreaksTwoWayANOVA.html) analysis." Whatever you do, DO NOT use any of the written statements from the example analyses in your analysis unless you quote them directly and give credit. Using someone else's writing as your own without giving credit to the original author is plagiarism and is an Honor Code Violation. So do your own work. Plus, the more you try to write things in your own words, the more you will learn. Also, note that there aren't really any "rules" about exactly how your document should be organized. So be creative and organize your file in a way that makes sense to you, but still has all important elements.
+
+-->
+
+## Background {.tabset .tabset-pills}
+
+Ever wonder for your reaction time depends of have your take a reaction time test. This experiment is to check if a person's reaction time depends on what hand they used (left/right) and also what eye is open (right/left). 
+
+## Data source
+
+The data was gotten from my personal results using all combinations of the factors of the data on a reaction test site. Each combination was run three times. The link of the reaction test site is: [ReationTest](https://humanbenchmark.com/tests/reactiontime). 
+
+
+
+
+The below table shows the records of the data collected. 
+
+```{r}
+datatable(reactiont)
+```
+ 
+
+## Analysis 
+
+To test if reaction time is affected by the hand used and eye used, we would carry out a two-way ANOVA test. We will use the ANOVA test because there are two factors involved; hand used and eye used. We could use two t-tests but that would increase the probability of get errors, so an ANOVA, which is just one test, would be preferred. 
+
+### Hypotheses
+
+This analysis will use a two-way ANOVA with the factors of `Hands`, and `Eyes` and their interaction. Thus, we have three sets of hypotheses that need to be stated in order to understand the effect of each on Reaction time.
+
+1. Does the `hand used` affect Reaction?
+
+Factor: `Hand` with levels $right$(r) and $left$(l).
+$$
+  H_0: \mu_r = \mu_l = \mu
+$$
+
+$$
+  H_a: \mu_r \neq \mu_l 
+$$
+
+
+2. Does the `Eyes Used` affect Reaction time?
+
+Factor: `Eyes` with levels $right$(r) and $left$(l).
+$$
+  H_0: \mu_r = \mu_l = \mu
+$$
+$$
+  H_a: \mu_r \neq \mu_l
+$$
+
+3. Does the effect of `Hand used` change for different `Eye Used`? (Does the effect of `Hand Used` change for different levels of `Eye Used`?) In other words, is there an interaction between `Hand Used` and `Eye Used`?
+
+$$
+  H_0: \text{The effect of Hand Used is the same for any Eye used.}
+$$
+
+$$
+  H_a: \text{The effect of Hand Used is not the same for any Eye used.}
+$$
+
+### Two-way ANOVA
+
+A significance level of $\alpha = 0.05$ will be used for this study.
+
+To find the results for the hypothesis, we conducted the two-way ANOVA and the result is the below: 
+
+```{r}
+myaov <- aov(Reaction_time ~ Hands + eyes + Hands:eyes, data=reactiont)
+summary(myaov) %>% pander()
+```
+
+From the test above, we see a p-value output for each of the hypothesis stated. Any p-value that is less than the level of significance we that the factor is significant. The conclusions are that `Hand Used` is a significant factor $(p=0.02142)$, but `Eyes Used` does have a significant effect on reaction time $(p=0.02714)$, and the effect of `Hand Used` seems to NOT depend on the `Eyes Used` because the interaction term is not significant $(p=0.8124)$. 
+
+#### Diagnostic Plots
+
+To check if the results for this test are to be trusted, we would check the requirements to carry out this test. We created a plot of the residuals vs the fitted to check if the variance is constant. We also created a Q-Q plot of the Residuals to check the normallity of the error terms.  
+```{r}
+par(mfrow=c(1,2))
+plot(myaov, which=1:2, pch=16)
+```
+
+From the above graph, we see that the Q-Q plot of residual (graph to the right) looks good with all points close to the line, so we can say the error terms are normal. The graph of th residuals vs the fitted does not look very good because of the data points in the middle, but it is not enough to take it into consideration, so we would still assume that it has a constant variance.
+
+### Graphical Summaries & Conclusions
+
+The following graphics prove the results of each of the three hypothesis tests. They would also give additional on the relationship. 
+
+#### Hand Used {.tabset .tabset-pills}
+
+The below chart and table is to prove the finding of our test on `Hand Used`.
+```{r}
+dotplot(Reaction_time ~ Hands, data=reactiont, type=c("p","a"), main="Does the hand used affect reaction time?", col='purple', xlab="Hands used", ylab="Reaction time") 
+```
+
+```{r}
+reactiont %>%
+  group_by(Hands) %>%
+  summarise(`Mean Reaction time`=mean(Reaction_time)) %>%
+  pander(caption="Mean of each hand")
+```
+
+The above chart and table verifies the finding of the test we carried out. The line in the chart is showing the average of the two factors. We can see that `right hand` has a lower average than `left hand`. This means that the hand used to take the reaction time test would affect the result. For our data set (Which is my personal results), right hand would give a lower reaction time. 
+
+
+
+#### Tension Level {.tabset .tabset-pills}
+
+The below chart and table is to prove the finding of our test on `Eye Used`.
+
+```{r}
+dotplot(Reaction_time ~ eyes, data=reactiont, type=c("p","a"), main="Does the eye used affect reaction time?", col='orange', xlab="Eye used", ylab="Reaction time") 
+```
+
+```{r}
+reactiont %>%
+  group_by(eyes) %>%
+  summarise(`Mean Reaction time`=mean(Reaction_time)) %>%
+  pander(caption="Mean of each eye")
+```
+
+The above chart and table verifies the finding of the test we carried out. The line in the chart also shows the average of the two factors. We can see that `right eyes` has a lower average than `left eyes`. This means that the eye used to take the reaction time test would affect the result. For our data set (Which is my personal results), right eye would give a lower reaction time. 
+
+#### Tension Choices Depending on Wool Type {.tabset .tabset-pills}
+
+The below chart and table is to prove the finding of our test on the interaction between `Hand Used` and `Eye Used`. 
+
+```{r}
+dotplot(Reaction_time ~ eyes, data=reactiont, groups=Hands, type=c("p","a"), main="Significance of the Interaction between hand and eye used", auto.key=list(corner=c(1,1)))
+```
+
+```{r message=FALSE, warning=FALSE}
+reactiont %>%
+  group_by(Hands, eyes) %>%
+  summarise(`Mean Reaction time`=mean(Reaction_time)) %>%
+  pander(caption="Mean of each interaction between Hand Used and Eye Used")
+```
+
+The above chart and table verifies the finding of the test we carried out. The line in the chart is showing the average reaction time of each hands for each eyes. We can see that line for both hands have lines similar and approximately parallel to each other. This means that the effect of hand used to take the reaction time test is the same for each eye. 
+
+## Conclusion
+
+With all the information found in the experiment, we can conclude that the hand and eye used during a reaction time test would affect the result of the test. However, we also found that the effect of the hand use to take the reaction time test would be the same for each eye when used. 

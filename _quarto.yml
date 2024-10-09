@@ -1,0 +1,79 @@
+project: 
+  type: website
+website:
+  title: "David Orizu Portfolio"
+  favicon: Images/favicon.png
+  back-to-top-navigation: true
+  repo-url: https://github.com/davidorizu//davidorizu2.git
+  #repo-actions: [issue] #if you want to allow others to report issues on your site uncomment this line
+
+  page-footer: 
+    border: true
+    left: "David Orizu 2024"
+    right: 
+      - icon: linkedin
+        href: https://www.linkedin.com/in/david-orizu-935508248/
+
+  navbar:
+    background: primary
+    search: true   
+    right:
+      - text: "Home"
+        file: index.qmd
+      - text: "My Resume"
+        file: resume.qmd
+      - text: "Data Analysis"
+        file: data_analysis/car_prices.qmd
+      - text: "Machine Learning"
+        file: Machine_Learning/breast_cancer.qmd
+    
+  
+  # learn more about navication here https://quarto.org/docs/websites/website-navigation.html
+  # comment out any of the sections below to turn off the sidebar
+
+  sidebar: 
+    - title: "Data Analysis"
+      style: "docked"
+      background: light
+      contents:
+        - text: "Car Prices"
+          file: data_analysis/car_price.qmd
+        - text: "---"
+        - text: "Cancer Analysis"
+          file: data_analysis/cancer_analysis.qmd
+        - text: "---"
+        - text: "Reaction time Analysis"
+          file: data_analysis/reaction_time.qmd
+        - text: "---"
+        
+    
+    - title: "Machine Learning"
+      style: "docked"
+      background: light
+      contents:
+        - text: "Breast Cancer Detection"
+          file: Machine_Learning/breast_cancer.qmd
+        - text: "---"
+        - text: "Bikes Sales"
+          file: Machine_Learning/bikes.qmd
+        - text: "---"
+        - text: "Housing Estimates"
+          file: Machine_Learning/housing.qmd
+        - text: "---"
+        - text: "Music Analysis"
+          file: Machine_Learning/top_spotify_analysis.qmd
+        - text: "---"
+       
+    
+format:  
+  html:
+    theme: #see this link to customize the theme with css (https://quarto.org/docs/output-formats/html-themes.html#dark-mode)
+      light: lumen # more themes can be found [here](https://quarto.org/docs/output-formats/html-themes.html)
+      dark: darkly
+      #light: cosmo
+      #dark: [cosmo, theme-dark.scss]
+    css: styles.css
+    toc: true
+
+
+

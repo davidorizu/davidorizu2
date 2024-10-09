@@ -1,0 +1,10 @@
+---
+title: "Bike Sales with ML"
+editor: visual
+---
+
+
+<iframe src="Bike_Executive_Summary.pdf" width="100%" height="500"></iframe>
+
+
+[Click to view colab](https://colab.research.google.com/drive/1K0feeXNQS1mPlyeByF9kIx95zBMtC8Wg?usp=sharing)
