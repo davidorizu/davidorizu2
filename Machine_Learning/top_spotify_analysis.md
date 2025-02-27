@@ -1,7 +1,7 @@
 ---
 title: "Spotify Analysis - What does it take to make the top charts"
 author: "David Orizu"
-date: "October 09, 2024"
+date: "February 27, 2025"
 execute: 
   keep-md: true
 format:
@@ -273,7 +273,7 @@ print("Accuracy:", metrics.accuracy_score(y_test, y_predictions))
 
 ::: {.cell-output .cell-output-stdout}
 ```
-Accuracy: 0.975177304964539
+Accuracy: 0.9716312056737588
 ```
 :::
 :::
